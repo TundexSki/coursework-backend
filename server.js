@@ -28,12 +28,19 @@ let ordersCollection
 
 // --- Middleware ---
 
+// Assign a unique request ID for tracing
+app.use((req, res, next) => {
+  req.id = Math.random().toString(36).slice(2, 9)
+  res.setHeader('X-Request-Id', req.id)
+  next()
+})
+
 // Logger middleware: log method, URL, and time
 app.use((req, res, next) => {
   const started = Date.now()
   res.on('finish', () => {
     const duration = Date.now() - started
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl} -> ${res.statusCode} (${duration}ms)`) // coursework logger
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl} -> ${res.statusCode} (${duration}ms) [${req.id}]`) // coursework logger
   })
   next()
 })
