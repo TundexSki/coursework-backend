@@ -18,6 +18,11 @@ function normalize(str) {
   return String(str ?? '').trim().toLowerCase()
 }
 
+// Utility: validate ObjectId string
+function isValidObjectId(id) {
+  return ObjectId.isValid(id)
+}
+
 if (!MONGODB_URI) {
   console.warn('[server] MONGODB_URI is not set. Please configure it in .env')
 }
@@ -168,6 +173,10 @@ app.post('/orders', async (req, res) => {
 // PUT /lessons/:id -> update lesson attributes (e.g. spaces after an order)
 app.put('/lessons/:id', async (req, res) => {
   const { id } = req.params
+
+  if (!isValidObjectId(id)) {
+    return res.status(400).json({ error: 'Invalid lesson ID' })
+  }
 
   try {
     const update = req.body || {}
