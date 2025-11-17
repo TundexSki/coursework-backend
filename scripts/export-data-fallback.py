@@ -9,9 +9,9 @@ import shutil
 from pathlib import Path
 from datetime import datetime
 
-PROJECT_ROOT = Path(__file__).parent.resolve()
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 BACKEND_DIR = PROJECT_ROOT / "express-backend"
-EXPORT_DIR = PROJECT_ROOT / "auto-exports"
+EXPORT_DIR = PROJECT_ROOT / "exports"
 EXPORT_DIR.mkdir(exist_ok=True)
 
 def copy_existing_exports():

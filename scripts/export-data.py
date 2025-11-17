@@ -14,11 +14,11 @@ from pathlib import Path
 from datetime import datetime
 
 # Paths
-PROJECT_ROOT = Path(__file__).parent.resolve()
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 BACKEND_DIR = PROJECT_ROOT / "express-backend"
 ENV_FILE = BACKEND_DIR / ".env"
 
-EXPORT_DIR = PROJECT_ROOT / "auto-exports"
+EXPORT_DIR = PROJECT_ROOT / "exports"
 EXPORT_DIR.mkdir(exist_ok=True)
 
 def load_env():
@@ -37,7 +37,6 @@ def load_env():
 
 def export_collection(mongo_uri, db_name, collection_name, out_path):
     """Export a MongoDB collection to JSON using mongosh (fallback to mongo if unavailable)."""
-    # Prefer mongosh; fallback to mongo
     cmd = [
         "mongosh",
         mongo_uri,
@@ -46,7 +45,6 @@ def export_collection(mongo_uri, db_name, collection_name, out_path):
     ]
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=30)
-        # Parse output lines (skip MongoDB shell chatter)
         json_lines = [ln for ln in result.stdout.splitlines() if ln.startswith("{")]
         data = [json.loads(ln) for ln in json_lines]
         with open(out_path, "w", encoding="utf-8") as f:
@@ -61,13 +59,11 @@ def export_collection(mongo_uri, db_name, collection_name, out_path):
 
 def export_postman_collection(base_url, out_path):
     """Export the live Postman collection from the backend (assumes Test-API-Live endpoint)."""
-    # We'll fetch the collection file we created earlier; if you have an endpoint to generate it, replace this.
     collection_path = BACKEND_DIR / "Test-API-Live.postman_collection.json"
     if not collection_path.is_file():
         sys.exit(f"❌ Postman collection file not found at {collection_path}")
     with open(collection_path, encoding="utf-8") as f:
         data = json.load(f)
-    # Optionally, replace placeholder URLs with the live base_url
     for item in data.get("item", []):
         url_obj = item["request"]["url"]
         if isinstance(url_obj, dict) and "raw" in url_obj:

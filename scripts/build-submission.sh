@@ -5,7 +5,7 @@
 set -euo pipefail
 
 # Paths
-PROJECT_ROOT="$(pwd)"
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 SUBMISSION_DIR="$PROJECT_ROOT/submission"
 ZIP_FILE="$PROJECT_ROOT/submission.zip"
 
