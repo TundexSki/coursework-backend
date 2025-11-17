@@ -1,0 +1,113 @@
+{
+  "info": {
+    "_postman_id": "test-api-v1",
+    "name": "Test API (no vars)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health / Docs",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": [""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all lessons",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/lessons",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["lessons"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search lessons",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/search?q=music",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["search"],
+          "query": [{ "key": "q", "value": "music" }]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create order",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Avery Daniels\",\n  \"phone\": \"5551234\",\n  \"email\": \"avery@example.com\",\n  \"items\": [\n    { \"lessonId\": \"65a1b2c3d4e5f67890abcdef\", \"spaces\": 2 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/orders",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["orders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/orders",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["orders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update lesson spaces",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"spaces\": 3\n}" },
+        "url": {
+          "raw": "http://localhost:3000/lessons/65a1b2c3d4e5f67890abcdef",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["lessons", "65a1b2c3d4e5f67890abcdef"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get lesson image",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/images/example.jpg",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["images", "example.jpg"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
