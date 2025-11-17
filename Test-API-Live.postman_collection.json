@@ -95,9 +95,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://aneskibackend.onrender.com/images/example.jpg",
+          "raw": "https://aneskibackend.onrender.com/images/algebra.svg",
           "host": ["aneskibackend", "onrender", "com"],
-          "path": ["images", "example.jpg"]
+          "path": ["images", "algebra.svg"]
         }
       },
       "response": []
