@@ -1,0 +1,106 @@
+{
+  "info": {
+    "_postman_id": "test-api-live-v1",
+    "name": "Test API (live)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health / Docs",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://aneskibackend.onrender.com/",
+          "host": ["aneskibackend", "onrender", "com"],
+          "path": [""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all lessons",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://aneskibackend.onrender.com/lessons",
+          "host": ["aneskibackend", "onrender", "com"],
+          "path": ["lessons"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search lessons",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://aneskibackend.onrender.com/search?q=music",
+          "host": ["aneskibackend", "onrender", "com"],
+          "path": ["search"],
+          "query": [{ "key": "q", "value": "music" }]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create order",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Avery Daniels\",\n  \"phone\": \"5551234\",\n  \"email\": \"avery@example.com\",\n  \"items\": [\n    { \"lessonId\": \"691ad149b2ae8c149db92acf\", \"spaces\": 2 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "https://aneskibackend.onrender.com/orders",
+          "host": ["aneskibackend", "onrender", "com"],
+          "path": ["orders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://aneskibackend.onrender.com/orders",
+          "host": ["aneskibackend", "onrender", "com"],
+          "path": ["orders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update lesson spaces",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"spaces\": 3\n}" },
+        "url": {
+          "raw": "https://aneskibackend.onrender.com/lessons/691ad149b2ae8c149db92acf",
+          "host": ["aneskibackend", "onrender", "com"],
+          "path": ["lessons", "691ad149b2ae8c149db92acf"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get lesson image",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://aneskibackend.onrender.com/images/example.jpg",
+          "host": ["aneskibackend", "onrender", "com"],
+          "path": ["images", "example.jpg"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
