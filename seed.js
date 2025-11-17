@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const { MongoClient } = require('mongodb')
 
+// Connection settings for the coursework MongoDB database
 const MONGODB_URI = process.env.MONGODB_URI
 const DB_NAME = process.env.DB_NAME || 'courseworkDB'
 
@@ -10,6 +11,7 @@ if (!MONGODB_URI) {
   process.exit(1)
 }
 
+// Seed data for the lessons collection. "topic" maps to the frontend "subject" field.
 const seedLessons = [
   {
     topic: 'Algebra II',
@@ -117,6 +119,7 @@ const seedLessons = [
   }
 ]
 
+// Connects to MongoDB, clears existing lessons, and inserts the seed data.
 async function run() {
   const client = new MongoClient(MONGODB_URI)
 

@@ -1,3 +1,5 @@
+// Express.js API for the after-school lessons coursework project.
+// Uses the native MongoDB driver and exposes lessons, orders, search, and image routes.
 require('dotenv').config()
 
 const express = require('express')
