@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: express-coursework
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: DB_NAME
+        value: courseworkDB
+      - key: PORT
+        value: 3000
