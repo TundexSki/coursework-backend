@@ -251,9 +251,22 @@ async function start() {
 
     console.log(`[server] Connected to MongoDB database "${DB_NAME}"`)
 
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log(`Express API listening on http://localhost:${PORT}`)
     })
+
+    // Graceful shutdown on SIGINT/SIGTERM
+    const shutdown = async () => {
+      console.log('[server] Shutting down gracefully...')
+      server.close(async () => {
+        await client.close()
+        console.log('[server] MongoDB connection closed')
+        process.exit(0)
+      })
+    }
+
+    process.on('SIGINT', shutdown)
+    process.on('SIGTERM', shutdown)
   } catch (err) {
     console.error('Failed to start server:', err)
     process.exit(1)
