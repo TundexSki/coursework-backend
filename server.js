@@ -179,9 +179,47 @@ app.put('/lessons/:id', async (req, res) => {
   }
 })
 
-// Health check
+// Root: API documentation and available routes
 app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'After-school lessons API' })
+  const docs = {
+    title: 'After-school lessons API',
+    status: 'ok',
+    baseUrl: `${req.protocol}://${req.get('host')}`,
+    endpoints: {
+      'GET /': { description: 'This API documentation' },
+      'GET /lessons': {
+        description: 'Fetch all lessons',
+        response: 'Array of lesson objects with id, subject, location, price, spaces, description, image'
+      },
+      'GET /search': {
+        description: 'Search lessons by query',
+        parameters: { q: 'string (searches subject, location, description; also matches numeric price/spaces)' },
+        example: '/search?q=music or /search?q=20'
+      },
+      'POST /orders': {
+        description: 'Create a new order/reservation',
+        body: { name: 'string', phone: 'string', email: 'string', items: 'Array of {lessonId, spaces}' },
+        response: 'Created order object with id'
+      },
+      'PUT /lessons/:id': {
+        description: 'Update a lesson (commonly used to decrement spaces after order)',
+        parameters: { id: 'MongoDB ObjectId string' },
+        body: { spaces: 'number' },
+        response: 'Updated lesson object'
+      },
+      'GET /images/:fileName': {
+        description: 'Serve static lesson images',
+        parameters: { fileName: 'string (image filename)' },
+        response: 'Image file or 404 if not found'
+      }
+    },
+    notes: [
+      'All lesson responses include an `id` field (stringified ObjectId).',
+      'Use the lesson `id` when creating orders or updating lesson spaces.',
+      'Search is case-insensitive and matches partial strings in text fields.'
+    ]
+  }
+  res.json(docs)
 })
 
 // --- Start server once Mongo is connected ---
