@@ -64,7 +64,8 @@ app.get('/lessons', async (req, res) => {
       price: doc.price,
       spaces: doc.spaces ?? doc.space,
       description: doc.description,
-      image: doc.image
+      image: doc.image,
+      addedAt: doc._id.getTimestamp() // include creation timestamp
     }))
 
     res.json(payload)
