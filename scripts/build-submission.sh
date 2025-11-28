@@ -54,14 +54,14 @@ fi
 # Create README with links
 echo "Creating README..."
 cat > "$SUBMISSION_DIR/README.md" <<'EOF'
-# Coursework Submission
+# CST3144 Coursework Submission
 
 ## Links
 
-- **[Vue.js App]** GitHub Repository: https://github.com/aneski/vue-coursework
-- **[Vue.js App]** GitHub Pages (live app): https://aneski.github.io/vue-coursework/
-- **[Express.js App]** GitHub Repository: https://github.com/haxsysgit/aneskibackend
-- **[Render.com Express.js App]** All lessons endpoint: https://aneskibackend.onrender.com/lessons
+- **[Vue.js App]** GitHub Repository: https://github.com/TundexSki/coursework-frontend
+- **[Vue.js App]** GitHub Pages (live app): https://TundexSki.github.io/coursework-frontend/
+- **[Express.js App]** GitHub Repository: https://github.com/TundexSki/coursework-backend
+- **[Render.com Express.js App]** All lessons endpoint: https://tundeh-backend.onrender.com/lessons
 
 ## Contents
 
