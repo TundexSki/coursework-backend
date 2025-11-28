@@ -287,7 +287,7 @@ async function start() {
 
     // Graceful shutdown on SIGINT/SIGTERM
     const shutdown = async () => {
-      console.log('[server] Shutting down gracefully...')
+      console.log('[server] Shutting down...')
       server.close(async () => {
         await client.close()
         console.log('[server] MongoDB connection closed')
