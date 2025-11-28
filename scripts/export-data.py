@@ -15,7 +15,7 @@ from datetime import datetime
 
 # Paths
 PROJECT_ROOT = Path(__file__).parent.parent.resolve()
-BACKEND_DIR = PROJECT_ROOT / "express-backend"
+BACKEND_DIR = PROJECT_ROOT  # scripts are inside express-coursework
 ENV_FILE = BACKEND_DIR / ".env"
 
 EXPORT_DIR = PROJECT_ROOT / "exports"

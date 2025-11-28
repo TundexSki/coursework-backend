@@ -15,39 +15,40 @@ rm -rf "$SUBMISSION_DIR" "$ZIP_FILE"
 
 # Create directory structure
 echo "Creating submission directory structure..."
-mkdir -p "$SUBMISSION_DIR"/{vue-app,express-app,exports,postman}
+mkdir -p "$SUBMISSION_DIR"/{vue-frontend,express-backend,exports,postman}
 
 # Copy Vue app (exclude node_modules and dist)
 echo "Copying Vue app..."
-cp -r vue-frontend/* "$SUBMISSION_DIR/vue-app/"
-rm -rf "$SUBMISSION_DIR/vue-app/node_modules"
-rm -rf "$SUBMISSION_DIR/vue-app/dist"
+cp -r "$PROJECT_ROOT/coursework-frontend"/* "$SUBMISSION_DIR/vue-frontend/"
+rm -rf "$SUBMISSION_DIR/vue-frontend/node_modules"
+rm -rf "$SUBMISSION_DIR/vue-frontend/dist"
 
 # Copy Express app (exclude node_modules)
 echo "Copying Express app..."
-cp -r express-backend/* "$SUBMISSION_DIR/express-app/"
-rm -rf "$SUBMISSION_DIR/express-app/node_modules"
+cp -r "$PROJECT_ROOT/express-coursework"/* "$SUBMISSION_DIR/express-backend/"
+rm -rf "$SUBMISSION_DIR/express-backend/node_modules"
 
 # Copy live exports (use live versions if they exist, otherwise fallback)
 echo "Copying exports..."
-if [[ -f express-backend/lessons-live-export.json ]]; then
-  cp express-backend/lessons-live-export.json "$SUBMISSION_DIR/exports/lessons.json"
-else
-  cp express-backend/lessons-export.json "$SUBMISSION_DIR/exports/lessons.json"
+BACKEND="$PROJECT_ROOT/express-coursework"
+if [[ -f "$BACKEND/lessons-live-export.json" ]]; then
+  cp "$BACKEND/lessons-live-export.json" "$SUBMISSION_DIR/exports/lessons.json"
+elif [[ -f "$BACKEND/lessons-export.json" ]]; then
+  cp "$BACKEND/lessons-export.json" "$SUBMISSION_DIR/exports/lessons.json"
 fi
 
-if [[ -f express-backend/orders-live-export.json ]]; then
-  cp express-backend/orders-live-export.json "$SUBMISSION_DIR/exports/orders.json"
-else
-  cp express-backend/orders-export.json "$SUBMISSION_DIR/exports/orders.json"
+if [[ -f "$BACKEND/orders-live-export.json" ]]; then
+  cp "$BACKEND/orders-live-export.json" "$SUBMISSION_DIR/exports/orders.json"
+elif [[ -f "$BACKEND/orders-export.json" ]]; then
+  cp "$BACKEND/orders-export.json" "$SUBMISSION_DIR/exports/orders.json"
 fi
 
 # Copy Postman collection (prefer live version)
 echo "Copying Postman collection..."
-if [[ -f express-backend/Test-API-Live.postman_collection.json ]]; then
-  cp express-backend/Test-API-Live.postman_collection.json "$SUBMISSION_DIR/postman/AfterSchool-API.postman_collection.json"
-else
-  cp express-backend/Test-API.postman_collection.json "$SUBMISSION_DIR/postman/AfterSchool-API.postman_collection.json"
+if [[ -f "$BACKEND/Test-API-Live.postman_collection.json" ]]; then
+  cp "$BACKEND/Test-API-Live.postman_collection.json" "$SUBMISSION_DIR/postman/AfterSchool-API.postman_collection.json"
+elif [[ -f "$BACKEND/Test-API.postman_collection.json" ]]; then
+  cp "$BACKEND/Test-API.postman_collection.json" "$SUBMISSION_DIR/postman/AfterSchool-API.postman_collection.json"
 fi
 
 # Create README with links
@@ -64,8 +65,8 @@ cat > "$SUBMISSION_DIR/README.md" <<'EOF'
 
 ## Contents
 
-- `vue-app/`: Vue.js frontend source code (node_modules excluded)
-- `express-app/`: Express.js backend source code (node_modules excluded)
+- `vue-frontend/`: Vue.js frontend source code (node_modules excluded)
+- `express-backend/`: Express.js backend source code (node_modules excluded)
 - `exports/`: MongoDB Atlas collections exported as JSON
   - `lessons.json`: All lessons from the live backend
   - `orders.json`: Sample orders created for testing

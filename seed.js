@@ -11,111 +11,124 @@ if (!MONGODB_URI) {
   process.exit(1)
 }
 
-// Seed data for the lessons collection. "topic" maps to the frontend "subject" field.
+// Seed data for the lessons collection using numeric IDs
 const seedLessons = [
   {
-    topic: 'Algebra II',
+    _id: 1,
+    subject: 'Algebra II',
     location: 'Room 204',
     price: 38,
-    space: 5,
+    spaces: 5,
     description: 'Quadratic, exponential, and polynomial problem solving with guided practice.',
-    image: '/images/algebra.svg'
+    image: 'algebra.svg'
   },
   {
-    topic: 'Biology Lab',
+    _id: 2,
+    subject: 'Biology Lab',
     location: 'Science Lab B',
     price: 42,
-    space: 5,
+    spaces: 5,
     description: 'Microscope work and dissections that bring cellular biology to life.',
-    image: '/images/biology-lab.svg'
+    image: 'biology-lab.svg'
   },
   {
-    topic: 'Chemistry Honors',
+    _id: 3,
+    subject: 'Chemistry Honors',
     location: 'Chemistry Lab',
     price: 44,
-    space: 5,
+    spaces: 5,
     description: 'Reactions, stoichiometry, and weekly safety-focused experiments.',
-    image: '/images/chemistry-honors.svg'
+    image: 'chemistry-honors.svg'
   },
   {
-    topic: 'Physics Workshop',
+    _id: 4,
+    subject: 'Physics Workshop',
     location: 'Innovation Studio',
     price: 46,
-    space: 5,
+    spaces: 5,
     description: 'Motion labs, energy challenges, and simple robotics tie-ins.',
-    image: '/images/physics-workshop.svg'
+    image: 'physics-workshop.svg'
   },
   {
-    topic: 'English Literature',
+    _id: 5,
+    subject: 'English Literature',
     location: 'Library Commons',
     price: 36,
-    space: 5,
+    spaces: 5,
     description: 'Close reading, essay writing, and seminar-style discussions.',
-    image: '/images/english-literature.svg'
+    image: 'english-literature.svg'
   },
   {
-    topic: 'World History',
+    _id: 6,
+    subject: 'World History',
     location: 'Room 112',
     price: 34,
-    space: 5,
+    spaces: 5,
     description: 'Global movements and key decisions from ancient to modern eras.',
-    image: '/images/world-history.svg'
+    image: 'world-history.svg'
   },
   {
-    topic: 'Computer Science Principles',
+    _id: 7,
+    subject: 'Computer Science Principles',
     location: 'Tech Lab',
     price: 48,
-    space: 5,
+    spaces: 5,
     description: 'Algorithms, interactive apps, and ethical computing foundations.',
-    image: '/images/computer-science-principles.svg'
+    image: 'computer-science-principles.svg'
   },
   {
-    topic: 'French Conversation',
+    _id: 8,
+    subject: 'French Conversation',
     location: 'Language Studio',
     price: 33,
-    space: 5,
+    spaces: 5,
     description: 'Roleplay, listening drills, and everyday vocabulary.',
-    image: '/images/french-conversation.svg'
+    image: 'french-conversation.svg'
   },
   {
-    topic: 'Studio Art',
+    _id: 9,
+    subject: 'Studio Art',
     location: 'Art Atelier',
     price: 40,
-    space: 5,
+    spaces: 5,
     description: 'Charcoal, acrylics, and mixed media portfolio pieces.',
-    image: '/images/studio-art.svg'
+    image: 'studio-art.svg'
   },
   {
-    topic: 'Music Ensemble',
+    _id: 10,
+    subject: 'Music Ensemble',
     location: 'Music Room',
     price: 37,
-    space: 5,
+    spaces: 5,
     description: 'Contemporary charts and small-group performance skills.',
-    image: '/images/music-ensemble.svg'
+    image: 'music-ensemble.svg'
   },
   {
-    topic: 'AP Economics',
+    _id: 11,
+    subject: 'AP Economics',
     location: 'Room 305',
     price: 45,
-    space: 5,
+    spaces: 5,
     description: 'Market simulations and data-driven policy case studies.',
-    image: '/images/ap-economics.svg'
+    image: 'ap-economics.svg'
   },
   {
-    topic: 'Health & Wellness',
+    _id: 12,
+    subject: 'Health & Wellness',
     location: 'Wellness Center',
     price: 32,
-    space: 5,
+    spaces: 5,
     description: 'Nutrition, mindfulness, and fitness planning for balanced living.',
-    image: '/images/health-wellness.svg'
+    image: 'health-wellness.svg'
   },
   {
-    topic: 'Environmental Science',
+    _id: 13,
+    subject: 'Environmental Science',
     location: 'Greenhouse Lab',
     price: 41,
-    space: 5,
+    spaces: 5,
     description: 'Ecosystems, sustainability challenges, and field data collection.',
-    image: '/images/environmental-science.svg'
+    image: 'environmental-science.svg'
   }
 ]
 

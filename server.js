@@ -6,7 +6,7 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const fs = require('fs')
-const { MongoClient, ObjectId } = require('mongodb')
+const { MongoClient } = require('mongodb')
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -19,22 +19,22 @@ function normalize(str) {
   return String(str ?? '').trim().toLowerCase()
 }
 
-// Utility: validate ObjectId string
-function isValidObjectId(id) {
-  return ObjectId.isValid(id)
+// Utility: validate numeric ID
+function isValidId(id) {
+  const num = Number(id)
+  return Number.isInteger(num) && num > 0
 }
 
 // Utility: format lesson document for API response
 function formatLesson(doc) {
   return {
-    id: doc._id.toString(),
-    subject: doc.subject || doc.topic,
+    id: doc._id,
+    subject: doc.subject,
     location: doc.location,
     price: doc.price,
-    spaces: doc.spaces ?? doc.space,
+    spaces: doc.spaces,
     description: doc.description,
-    image: doc.image,
-    addedAt: doc._id.getTimestamp()
+    image: doc.image
   }
 }
 
@@ -101,6 +101,26 @@ app.get('/lessons', async (req, res) => {
   }
 })
 
+// GET /lessons/:id -> single lesson by ID
+app.get('/lessons/:id', async (req, res) => {
+  const { id } = req.params
+
+  if (!isValidId(id)) {
+    return res.status(400).json({ error: 'Invalid lesson ID' })
+  }
+
+  try {
+    const doc = await lessonsCollection.findOne({ _id: Number(id) })
+    if (!doc) {
+      return res.status(404).json({ error: 'Lesson not found' })
+    }
+    res.json(formatLesson(doc))
+  } catch (err) {
+    console.error('GET /lessons/:id failed:', err)
+    res.status(500).json({ error: 'Failed to fetch lesson' })
+  }
+})
+
 // GET /search?q=... -> multi-field search
 app.get('/search', async (req, res) => {
   const q = normalize(req.query.q)
@@ -150,7 +170,7 @@ app.post('/orders', async (req, res) => {
     }
 
     const parsedItems = items.map((item) => ({
-      lessonId: new ObjectId(item.lessonId),
+      lessonId: Number(item.lessonId),
       spaces: Number(item.spaces || item.quantity || 0)
     }))
 
@@ -193,7 +213,7 @@ app.get('/orders', async (req, res) => {
 app.put('/lessons/:id', async (req, res) => {
   const { id } = req.params
 
-  if (!isValidObjectId(id)) {
+  if (!isValidId(id)) {
     return res.status(400).json({ error: 'Invalid lesson ID' })
   }
 
@@ -205,16 +225,16 @@ app.put('/lessons/:id', async (req, res) => {
     }
 
     const result = await lessonsCollection.findOneAndUpdate(
-      { _id: new ObjectId(id) },
+      { _id: Number(id) },
       { $set: update },
       { returnDocument: 'after' }
     )
 
-    if (!result.value) {
+    if (!result) {
       return res.status(404).json({ error: 'Lesson not found' })
     }
 
-    res.json(result.value)
+    res.json(formatLesson(result))
   } catch (err) {
     console.error('PUT /lessons/:id failed:', err)
     res.status(500).json({ error: 'Failed to update lesson' })
